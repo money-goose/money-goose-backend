@@ -2,10 +2,11 @@ CREATE DATABASE moneygoose;
 
 CREATE TABLE user (
     uid INTEGER SERIAL,
-    gender INTEGER NOT NULL CHECK(gender = 1 OR gender = 2),
     username VARCHAR(255) NOT NULL, 
     password VARCHAR(255) NOT NULL,
     dob DATE NOT NULL,
+    gender INTEGER NOT NULL CHECK(gender = 1 OR gender = 2),
+    adminRights INTEGER NOT NULL CHECK (adminRights = 1 OR adminRights = 2),
     nid INTEGER REFERENCES nationality(nid),
     oid INTEGER REFERENCES occupation(oid),
     eid INTEGER REFERENCES education(eid)
@@ -29,7 +30,7 @@ CREATE TABLE education (
 CREATE TABLE userSpending (
     sid INTEGER SERIAL,
     description VARCHAR(255) NOT NULL,
-    dateTime DATE NOT NULL,
+    dateTime DATETIME NOT NULL,
     scid INTEGER REFERENCES spendingCategory(scid)
 )
 
