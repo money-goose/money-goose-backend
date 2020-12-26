@@ -52,7 +52,7 @@ app.put("/moneygoose/:uid", async(req,res) => {
 
 app.get("/moneygoose", async(req, res) => {
     try {
-        const allUsers = await pool.query("SELECT * FROM user");
+        const allUsers = await pool.query("SELECT * FROM users");
         res.json(allUsers.rows);
     } catch (error) {
         console.error(error.message);
@@ -180,6 +180,40 @@ app.delete("/moneygoose/spending/:sid", async(req,res) => {
     }
 })
 
+//get all nationalities
+
+
+
+app.get("/moneygoose/nationality/get", async(req, res) => {
+    try {
+        const allNationalites = await pool.query("SELECT * FROM nationality");
+        res.json(allNationalites.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+//get all occupations
+
+app.get("/moneygoose/occupation/get", async(req, res) => {
+    try {
+        const occupations = await pool.query("SELECT * FROM occupation");
+        res.json(occupations.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+//get all educations
+
+app.get("/moneygoose/education/get", async(req, res) => {
+    try {
+        const educations = await pool.query("SELECT * FROM education");
+        res.json(educations.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
 
 
 app.listen(5000, () => {
