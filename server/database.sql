@@ -1,43 +1,40 @@
 CREATE DATABASE moneygoose;
 
-CREATE TABLE user (
-    uid INTEGER SERIAL,
+CREATE TABLE users (
+    uid SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL, 
     password VARCHAR(255) NOT NULL,
     dob DATE NOT NULL,
-    gender INTEGER NOT NULL CHECK(gender = 1 OR gender = 2),
+    gender VARCHAR(1) NOT NULL CHECK(gender = 'M' OR gender = 'F'),
     adminRights INTEGER NOT NULL CHECK (adminRights = 1 OR adminRights = 2),
-    nid INTEGER REFERENCES nationality(nid),
-    oid INTEGER REFERENCES occupation(oid),
-    eid INTEGER REFERENCES education(eid)
-)
+    nationality VARCHAR(255) REFERENCES nationality(description),
+    occupation VARCHAR(255) REFERENCES occupation(description),
+    education VARCHAR(255) REFERENCES education(description)
+);
 
 CREATE TABLE nationality (
-    nid INTEGER PRIMARY KEY,
-    description VARCHAR(255) NOT NULL
-)
+    description VARCHAR(255) PRIMARY KEY
+);
 
 CREATE TABLE occupation (
-    oid INTEGER PRIMARY KEY,
-    description VARCHAR(255) NOT NULL
-)
+    description VARCHAR(255) PRIMARY KEY
+);
 
 CREATE TABLE education (
-    eid INTEGER PRIMARY KEY,
-    description VARCHAR(255) NOT NULL
-)
+    description VARCHAR(255) PRIMARY KEY
+);
 
 CREATE TABLE userSpending (
-    sid INTEGER SERIAL,
+    sid SERIAL PRIMARY KEY,
+    uid INTEGER REFERENCES users(uid) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    dateTime DATETIME NOT NULL,
-    scid INTEGER REFERENCES spendingCategory(scid)
-)
+    dateTime DATE NOT NULL,
+    category VARCHAR(255) REFERENCES spendingCategory(description)
+);
 
 CREATE TABLE spendingCategory (
-    scid INTEGER PRIMARY KEY,
-    description VARCHAR(255) NOT NULL
-)
+    description VARCHAR(255) PRIMARY KEY
+);
 
 
 
